@@ -46,7 +46,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     
 
     @objc func addTapped() {
-        print("추가 버튼 눌림")
+        let vc = PhoneBookViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 
