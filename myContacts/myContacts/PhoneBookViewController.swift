@@ -11,7 +11,12 @@ final class PhoneBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
+        // 네비게이션바 제목
         title = "연락처 추가"
+        
+        let applyButton = UIBarButtonItem(title: "적용", style: .plain, target: self, action: #selector(applyTapped))
+        navigationItem.rightBarButtonItem = applyButton
 
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.clipsToBounds = true
@@ -30,7 +35,6 @@ final class PhoneBookViewController: UIViewController {
         phoneField.borderStyle = .roundedRect
 
         [profileImageView, randomButton, nameField, phoneField].forEach { view.addSubview($0) }
-
 
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(24)
@@ -51,6 +55,11 @@ final class PhoneBookViewController: UIViewController {
             make.leading.trailing.equalTo(nameField)
             make.height.equalTo(44)
         }
+    }
+    
+
+    @objc private func applyTapped() {
+        print("적용 버튼 눌림")
     }
 }
 
