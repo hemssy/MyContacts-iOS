@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import CoreData
 
 class PhoneBookViewController: UIViewController {
 
@@ -12,9 +13,9 @@ class PhoneBookViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
 
-        // 네비게이션바 제목,버튼
+        // 네비게이션바
         title = "연락처 추가"
-        let applyButton = UIBarButtonItem(title: "적용", style: .plain, target: self, action: #selector(applyTapped))
+        let applyButton = UIBarButtonItem(title: "적용", style: .done, target: self, action: #selector(applyTapped))
         navigationItem.rightBarButtonItem = applyButton
 
         // 프로필 이미지뷰
@@ -32,12 +33,11 @@ class PhoneBookViewController: UIViewController {
         // 텍스트필드
         nameField.placeholder = "이름"
         nameField.borderStyle = .roundedRect
-
         phoneField.placeholder = "전화번호"
         phoneField.keyboardType = .numberPad
         phoneField.borderStyle = .roundedRect
 
-        // 서브뷰 추가
+        // 서브뷰
         [profileImageView, randomButton, nameField, phoneField].forEach { view.addSubview($0) }
 
         // 레이아웃
@@ -62,11 +62,48 @@ class PhoneBookViewController: UIViewController {
         }
     }
 
+    // 적용버튼(저장->pop)
     @objc private func applyTapped() {
+        let name = (nameField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let phone = (phoneField.text ?? "").trimmingCharacters(in: .whitespaces)
 
+        guard !name.isEmpty, !phone.isEmpty else {
+            showAlert(title: "입력 확인", message: "이름과 전화번호를 모두 입력해주세요.")
+            return
+        }
+
+        let ctx = CoreDataStack.context
+        guard let entityDesc = NSEntityDescription.entity(forEntityName: "ContactEntity", in: ctx) else {
+            showAlert(title: "오류", message: "엔터티를 찾을 수 없습니다.")
+            return
+        }
+        let newContact = ContactEntity(entity: entityDesc, insertInto: ctx)
+        newContact.name = name
+        newContact.phone = phone
+        if let image = profileImageView.image,
+           let data = image.jpegData(compressionQuality: 0.9) {
+            newContact.imageData = data
+        } else {
+            newContact.imageData = nil
+        }
+
+        // 저장
+        guard CoreDataStack.saveContextIfNeeded() else {
+            showAlert(title: "저장 실패", message: "다시 시도해주세요.")
+            return
+        }
+
+        // 저장하고 바로 메인으로 돌아옴
+        navigationController?.popViewController(animated: true)
     }
 
-    // 버튼 → 랜덤 포켓몬 이미지 가져와서 프로필에 반영
+    private func showAlert(title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "확인", style: .default))
+        present(ac, animated: true)
+    }
+
+    // 랜덤 포켓몬 이미지 -> 프로필에 반영
     @objc private func didTapRandomImage() {
         randomButton.isEnabled = false
         PokemonAPI.fetchRandomPokemonImage { [weak self] image in
