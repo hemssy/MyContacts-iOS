@@ -1,64 +1,61 @@
 import UIKit
 import SnapKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource {
-    
 
     let tableView = UITableView()
-    
 
-    let contacts: [Contact] = [
-        Contact(name: "name", phone: "010-0000-0000"),
-        Contact(name: "name", phone: "010-0000-0000"),
-        Contact(name: "name", phone: "010-0000-0000"),
-        Contact(name: "name", phone: "010-0000-0000"),
-        Contact(name: "name", phone: "010-0000-0000"),
-        Contact(name: "name", phone: "010-0000-0000")
-    ]
-    
+    // 코어데이터에서 가져온 데이터가 여기에 담김
+    private var contacts: [ContactEntity] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
-        
-
-        self.title = "친구 목록"
-        
+        title = "친구 목록"
 
         let addButton = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = addButton
-        
 
         tableView.rowHeight = 80
         tableView.dataSource = self
         tableView.register(ContactCell.self, forCellReuseIdentifier: "ContactCell")
-        
         view.addSubview(tableView)
-        
-
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchContacts()
+        tableView.reloadData()
+    }
 
     @objc func addTapped() {
         let vc = PhoneBookViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
+    private func fetchContacts() {
+        let request: NSFetchRequest<ContactEntity> = ContactEntity.fetchRequest()
+
+        do {
+            contacts = try CoreDataStack.context.fetch(request)
+        } catch {
+            print("fetch error:", error)
+            contacts = []
+        }
+    }
+
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        contacts.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! ContactCell
-        let contact = contacts[indexPath.row]
-        cell.configure(name: contact.name, phone: contact.phone)
+        cell.configure(with: contacts[indexPath.row])
         return cell
     }
 }
