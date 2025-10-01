@@ -29,6 +29,11 @@ class ViewController: UIViewController, UITableViewDataSource {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchContacts()
+
+        contacts.sort {
+            ($0.name ?? "") < ($1.name ?? "")
+        }
+        
         tableView.reloadData()
     }
 
