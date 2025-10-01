@@ -63,6 +63,15 @@ class PhoneBookViewController: UIViewController {
             make.height.equalTo(44)
         }
         
+        if let contact = existingContact {
+            if let data = contact.imageData {
+                profileImageView.image = UIImage(data: data)
+            }
+            nameField.text = contact.name
+            phoneField.text = contact.phone
+            title = contact.name ?? "연락처"
+        }
+        
     }
 
     // 적용버튼(저장->pop)
