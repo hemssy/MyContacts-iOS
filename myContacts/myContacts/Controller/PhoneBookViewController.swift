@@ -3,7 +3,9 @@ import SnapKit
 import CoreData
 
 class PhoneBookViewController: UIViewController {
-
+    
+    var existingContact: ContactEntity?
+    
     private let profileImageView = UIImageView()
     private let randomButton = UIButton(type: .system)
     private let nameField = UITextField()
@@ -60,6 +62,7 @@ class PhoneBookViewController: UIViewController {
             make.leading.trailing.equalTo(nameField)
             make.height.equalTo(44)
         }
+        
     }
 
     // 적용버튼(저장->pop)
