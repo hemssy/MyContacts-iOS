@@ -2,7 +2,8 @@ import UIKit
 import SnapKit
 import CoreData
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
 
     let tableView = UITableView()
 
@@ -19,6 +20,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 
         tableView.rowHeight = 80
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(ContactCell.self, forCellReuseIdentifier: "ContactCell")
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -62,6 +64,13 @@ class ViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! ContactCell
         cell.configure(with: contacts[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let contact = contacts[indexPath.row]
+        let vc = PhoneBookViewController()
+        vc.existingContact = contact
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
