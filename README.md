@@ -1,4 +1,5 @@
-# MyContacts-iOS
+# <img width="40" height="40" alt="icon-ios-20x20@2x" src="https://github.com/user-attachments/assets/2a48c534-07de-4a16-926e-a4318b0a602d" />&nbsp; MyContacts-iOS
+
 ## Swift로 연락처 앱 만들기
 
 ## 프로젝트 소개
