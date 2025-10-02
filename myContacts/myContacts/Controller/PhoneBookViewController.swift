@@ -85,19 +85,29 @@ class PhoneBookViewController: UIViewController {
         }
 
         let ctx = CoreDataStack.context
-        guard let entityDesc = NSEntityDescription.entity(forEntityName: "ContactEntity", in: ctx) else {
-            showAlert(title: "오류", message: "엔터티를 찾을 수 없습니다.")
-            return
-        }
-        let newContact = ContactEntity(entity: entityDesc, insertInto: ctx)
-        newContact.name = name
-        newContact.phone = phone
-        if let image = profileImageView.image,
-           let data = image.jpegData(compressionQuality: 0.9) {
-            newContact.imageData = data
-        } else {
-            newContact.imageData = nil
-        }
+        
+             let target: ContactEntity
+             if let contact = existingContact {
+                 // 기존 엔티티 수정
+                 target = contact
+             } else {
+                 // 새로 생성하기(추가 화면에서 들어온 경우)
+                 guard let entityDesc = NSEntityDescription.entity(forEntityName: "ContactEntity", in: ctx) else {
+                     showAlert(title: "오류", message: "엔터티를 찾을 수 없습니다.")
+                     return
+                 }
+                 target = ContactEntity(entity: entityDesc, insertInto: ctx)
+             }
+
+             // 공통필드 반영해주기
+             target.name = name
+             target.phone = phone
+             if let image = profileImageView.image,
+                let data = image.jpegData(compressionQuality: 0.9) {
+                 target.imageData = data
+             } else {
+                 target.imageData = nil
+             }
 
         // 저장
         guard CoreDataStack.saveContextIfNeeded() else {
