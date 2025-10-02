@@ -13,18 +13,14 @@
 ---
 ## 실행 화면
 
-|       뷰       |                                                              1                                                              |                                                              2                                                              |                                                              3                                                                                        |
-|:-------------:|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
-| **연락처 <br> 저장** |  |  |  |
-| **연락처 <br> 편집** |  |  |  |
-| **연락처 <br> 삭제** |  |  |  |
+|`연락처 저장`|`연락처 편집`|`연락처 삭제`|
+|-------|-------|-------|
+|<img src="https://github.com/user-attachments/assets/00bff053-2dcf-474b-9b21-ec2ad2f9152a" width="286" height="600">|<img src="https://github.com/user-attachments/assets/92aeb1cf-a5bd-46d4-b361-1f0e85f9317b" width="286" height="600">|<img src="https://github.com/user-attachments/assets/7a728443-777a-4dd6-beb0-494166bbe017" width="286" height="600">|
 
 ---
 ## Development Environment 🛠 
 
 ![iOS Version](https://img.shields.io/badge/iOS-18.5-lightgrey.svg?style=for-the-badge&logo=apple&logoColor=white)&nbsp;&nbsp;&nbsp;![Xcode Version](https://img.shields.io/badge/Xcode-16.4-blue.svg?style=for-the-badge&logo=xcode&logoColor=white)&nbsp;&nbsp;&nbsp;![Swift Version](https://img.shields.io/badge/Swift-6.1.2-orange.svg?style=for-the-badge&logo=swift&logoColor=white)
-
-
 
 
 ---
