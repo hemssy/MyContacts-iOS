@@ -15,7 +15,7 @@
 
 |`연락처 저장`|`연락처 편집`|`연락처 삭제`|
 |-------|-------|-------|
-|<img src="https://github.com/user-attachments/assets/00bff053-2dcf-474b-9b21-ec2ad2f9152a" width="286" height="600">|<img src="https://github.com/user-attachments/assets/92aeb1cf-a5bd-46d4-b361-1f0e85f9317b" width="286" height="600">|<img src="https://github.com/user-attachments/assets/7a728443-777a-4dd6-beb0-494166bbe017" width="286" height="600">|
+|<img src="https://github.com/user-attachments/assets/00bff053-2dcf-474b-9b21-ec2ad2f9152a" width="275" height="600">|<img src="https://github.com/user-attachments/assets/92aeb1cf-a5bd-46d4-b361-1f0e85f9317b" width="275" height="600">|<img src="https://github.com/user-attachments/assets/7a728443-777a-4dd6-beb0-494166bbe017" width="275" height="600">|
 
 ---
 ## Development Environment 🛠 
