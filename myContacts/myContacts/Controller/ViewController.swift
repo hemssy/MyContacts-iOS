@@ -72,5 +72,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         vc.existingContact = contact
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { _, _, completion in
+            let ctx = CoreDataStack.context
+            let target = self.contacts[indexPath.row]
+
+            ctx.delete(target)
+            do {
+                try ctx.save()
+                self.contacts.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                completion(true)
+            } catch {
+                print("삭제 에러:", error)
+                completion(false)
+            }
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
 }
 
