@@ -18,7 +18,6 @@
 | **연락처 <br> 저장** |  |  |  |
 | **연락처 <br> 편집** |  |  |  |
 | **연락처 <br> 삭제** |  |  |  |
-| **전화앱으로 <br> 연결** |  |  |  |
 
 ---
 ## Development Environment 🛠 
@@ -45,3 +44,33 @@
 ---
 ## 📂 Foldering
 ```bash
+
+myContacts/
+├── 📁myContacts/
+│   ├── 📁Controller/
+│   │   ├── PhoneBookViewController.swift
+│   │   └── ViewController.swift
+│   │
+│   ├── 📁Delegate/
+│   │   ├── AppDelegate.swift
+│   │   └── SceneDelegate.swift
+│   │
+│   ├── 📁Model/
+│   │   ├── CoreDataStack.swift
+│   │   └── PhoneBookModel.xcdatamodeld
+│   │
+│   ├── 📁Resources/
+│   │   ├── Assets.xcassets
+│   │   └── LaunchScreen.storyboard
+│   │
+│   ├── 📁Utils/
+│   │   └── PokemonAPI.swift
+│   │
+│   ├── 📁View/
+│   │   └── ContactCell.swift
+│   │
+│   └── Info.plist
+│
+└── 📦Package Dependencies/
+    └── SnapKit 5.7.1
+
